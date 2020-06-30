@@ -1,24 +1,27 @@
 module Enumerable
   def my_each
-    return enum_for unless block_given?
+    return enum_for(:my_each) unless block_given?
 
+    array = is_a?(Array) ? self : to_a
     i = 0
-    while i < size
-      yield(to_a[i])
+    while i < array.length
+      yield(array[i])
       i += 1
     end
   end
 
   # My_each with index
   def my_each_with_index
-    return enum_for unless block_given?
+    return enum_for(:my_each) unless block_given?
 
+    array = is_a?(Array) ? self : to_a
     i = 0
-    while i < size
-      yield(to_a[i], i)
+    while i < array.length
+      yield(array[i], i)
       i += 1
     end
   end
+
   # My_SELECT
 
   def my_select
@@ -37,7 +40,7 @@ module Enumerable
   end
 
   # My_all?
-  def my_all?
+  def my_all?(_arg = nil)
     if !block_given?
       my_select { |item| return false unless item }
     else
@@ -75,7 +78,16 @@ module Enumerable
 end
 
 # ha = { 'help' => 'smth', 'learn' => 'wede' }
-
 # p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
 # p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-# p [true, false, 99].my_all? #=> false
+# # p %w[ant bear cat].my_all?(/t/)                        #=> false
+# # p [1, 2i, 3.14].my_all?(Numeric)                       #=> true
+# p [nil, true, 99].my_all?                              #=> false
+# p [].my_all?                                           #=> true
+
+# p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+# p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+# # p %w[ant bear cat].my_any?(/d/)                        #=> false
+# # p [nil, true, 99].my_any?(Integer)                     #=> true
+# p [nil, true, 99].my_any?                              #=> true
+# p [].my_any?                                           #=> false

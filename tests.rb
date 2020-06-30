@@ -1,10 +1,5 @@
 require_relative 'enumerables.rb'
-# (1..5).my_each do |item|
-#     puts item
-#  end
-ar = []
-has = { 'hello' => 'buy', 'true' => 'false' }
-has.my_each { |_k, v| ar << v }
 
-# has.each  {|k,v| ar<< v}
-p ar
+Lots = Struct.new(:a, :b, :c, :d, :e, :f)
+l = Lots.new(11, 22, 33, 44, 55, 66)
+p l.my_select(&:even?) #=> [22, 44, 66]
