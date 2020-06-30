@@ -26,7 +26,6 @@ module Enumerable
 
   def my_select
     return enum_for unless block_given?
-
     if is_a? Hash
       selected = []
       arr = to_a
@@ -46,7 +45,6 @@ module Enumerable
     else
       my_select { |item| return false unless yield(item) }
     end
-
     true
   end
 
