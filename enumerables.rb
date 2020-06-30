@@ -38,39 +38,44 @@ module Enumerable
 
   # My_all?
   def my_all?
-    return enum_for unless block_given?
+    if !block_given?
+      my_select { |item| return false unless item }
+    else
+      my_select { |item| return false unless yield(item) }
+    end
 
-    my_select { |item| return false unless yield(item) }
     true
   end
 
-#My_any
+  # My_any
   def my_any?
-    return enum_for unless block_given?
-    my_select { |item| return true if yield(item) }
+    if !block_given?
+      my_select { |item| return true if item }
+    else
+      my_select { |item| return true if yield(item) }
+    end
     false
   end
 
-#My_none
-def my_none?
-  return enum_for unless block_given?
-  my_select { |item| return true if yield(item) }
-  false
+  # My_none
+
+  def my_none?
+    if !block_given?
+      my_select { |item| return false if item }
+    else
+      my_select { |item| return false if yield(item) }
+    end
+    true
+  end
+
+  # MY_COUNT
+  def my_count(_arg = nil)
+    count
+  end
 end
 
+# ha = { 'help' => 'smth', 'learn' => 'wede' }
 
-end
-
-ha = { 'help' => 'smth', 'learn' => 'wede' }
-
-# arr = %w[ruby dawq]
-# p ha.my_none? { |k,v| v == "smth" }
-
-p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
-p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
-p %w{ant bear cat}.my_none?(/d/)                        #=> true
-p [1, 3.14, 42].my_none?(Float)                         #=> false
-p [].my_none?                                           #=> true
-p [nil].my_none?                                        #=> true
-p [nil, false].my_none?                                 #=> true
-p [nil, false, true].my_none?                           #=> false
+# p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
+# p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+# p [true, false, 99].my_all? #=> false
