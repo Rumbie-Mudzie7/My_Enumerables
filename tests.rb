@@ -1,15 +1,11 @@
 require_relative 'enumerables.rb'
 
-
-
-# p "bear".match?(/bear/)
-
 # None tests
-# %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
-# %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
-# %w{ant bear cat}.none?(/plant/)                        #=> true
-# [1, 3.14, 42].none?(Float)                         #=> false
-# [].none?                                           #=> true
-# [nil].none?                                        #=> true
-# [nil, false].none?                                 #=> true
-# [nil, false, true].none?                           #=> false
+# p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+# p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+p %w[ant bear cat].none?(/t/) #=> true
+p [1, 3, 42].none?(Float) #=> false
+# p [].my_none?                                           #=> true
+# p [nil].my_none?                                        #=> true
+# p [nil, false].my_none?                                 #=> true
+# p [nil, false, true].my_none?                           #=> false

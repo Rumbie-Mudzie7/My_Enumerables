@@ -52,7 +52,7 @@ module Enumerable
     if args.class == Regexp
       ar = []
       my_each { |el| ar << el if el.match?(args) }
-      return  ar.empty? ? false : true
+      return ar.empty? ? false : true
     end
 
     my_select { |el| return true if el.is_a?(args) } if args.class == Class
@@ -65,12 +65,14 @@ module Enumerable
 
   # My_none
 
-  def my_none?
-    if !block_given?
-      my_select { |item| return false if item }
-    else
-      my_select { |item| return false if yield(item) }
+  def my_none?(args = nil)
+    if args.class == Regexp
+      ar = []
+      my_each { |el| ar << el if el.match?(args) }
+      return ar.empty? ? false : true
     end
+
+    !block_given? ? my_select { |item| return false if item } : my_select { |item| return false if yield(item) }
     true
   end
 
@@ -79,18 +81,3 @@ module Enumerable
   #   count
   # end
 end
-
-# ha = { 'help' => 'smth', 'learn' => 'wede' }
-# p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
-# p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-# # p %w[ant bear cat].my_all?(/t/)                        #=> false
-# # p [1, 2i, 3.14].my_all?(Numeric)                       #=> true
-# p [nil, true, 99].my_all?                              #=> false
-# p [].my_all?                                           #=> true
-
-# p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-# p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-# # p %w[ant bear cat].my_any?(/d/)                        #=> false
-# # p [nil, true, 99].my_any?(Integer)                     #=> true
-# p [nil, true, 99].my_any?                              #=> true
-# p [].my_any?                                           #=> false
