@@ -35,8 +35,42 @@ module Enumerable
     arr.my_each { |el| selected << el if yield(el) }
     selected
   end
+
+  # My_all?
+  def my_all?
+    return enum_for unless block_given?
+
+    my_select { |item| return false unless yield(item) }
+    true
+  end
+
+#My_any
+  def my_any?
+    return enum_for unless block_given?
+    my_select { |item| return true if yield(item) }
+    false
+  end
+
+#My_none
+def my_none?
+  return enum_for unless block_given?
+  my_select { |item| return true if yield(item) }
+  false
 end
 
-# ha = { 'help' => 'me', 'learn' => 'smth' }
-# arr = [2, 4, 6, 9, 7, 10, 4]
-# p arr.my_select { |el| el == 4 }
+
+end
+
+ha = { 'help' => 'smth', 'learn' => 'wede' }
+
+# arr = %w[ruby dawq]
+# p ha.my_none? { |k,v| v == "smth" }
+
+p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+p %w{ant bear cat}.my_none?(/d/)                        #=> true
+p [1, 3.14, 42].my_none?(Float)                         #=> false
+p [].my_none?                                           #=> true
+p [nil].my_none?                                        #=> true
+p [nil, false].my_none?                                 #=> true
+p [nil, false, true].my_none?                           #=> false
