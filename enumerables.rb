@@ -90,4 +90,22 @@ module Enumerable
     ar = my_select { |el| yield(el) }
     return ar.size if block_given?
   end
+
+  # MY_MAP
+  def my_map
+    return enum_for(:my_map) unless block_given?
+    ar = []
+    my_each { |el| ar << yield(el) }
+    ar
+  end
+
+  # MY_REDUCE
+  def my_inject(args = nil)
+  if args == nil
+  memo = to_a[0]
+  num = 0
+  end
+
+  end
+
 end
