@@ -69,15 +69,25 @@ module Enumerable
     if args.class == Regexp
       ar = []
       my_each { |el| ar << el if el.match?(args) }
-      return ar.empty? ? false : true
+      return ar.empty? ? true : false
     end
-
+    if args.class == Class
+      ar = []
+      my_each { |el| ar << el if el.is_a?(args) }
+      return ar.empty? ? true : false
+    end
     !block_given? ? my_select { |item| return false if item } : my_select { |item| return false if yield(item) }
     true
   end
 
   # MY_COUNT
-  # def my_count(_args = nil)
-  #   count
-  # end
+  def my_count(args = nil)
+    return size if !block_given? && args.nil?
+
+    ar = my_select { |el| el == args }
+    return ar.size unless args.nil?
+
+    ar = my_select { |el| yield(el) }
+    return ar.size if block_given?
+  end
 end
