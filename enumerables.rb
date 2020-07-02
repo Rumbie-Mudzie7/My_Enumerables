@@ -101,11 +101,14 @@ module Enumerable
   end
 
   # MY_REDUCE
+
   def my_reduce(arg1 = nil, arg2 = nil)
+    accumul = to_a[0]
+     rest = to_a[1..-1]
+     
+
     if block_given?
       unless arg1
-        accumul = to_a[0]
-        rest = to_a[1..-1]
         rest.my_each { |el| accumul = yield(accumul, el) }
         return accumul
       end
@@ -113,19 +116,21 @@ module Enumerable
       to_a.my_each { |el| accumul = yield(accumul, el) }
       return accumul
     end
-
     if arg1 && arg2
       accumul = arg1
       my_each { |el| accumul = accumul.send(arg2, el) }
       return accumul
     end
     if arg1.is_a?(Symbol)
-      accumul = to_a[0]
-      rest = to_a[1..-1]
       rest.my_each { |el| accumul = accumul.send(arg1, el) }
       accumul
     end
-  end
+ end
+
+
+
+
+
 
   # def my_inject(initial = nil, second = nil)
   #   arr = if is_a?(Array)
