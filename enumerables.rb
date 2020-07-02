@@ -94,18 +94,42 @@ module Enumerable
   # MY_MAP
   def my_map
     return enum_for(:my_map) unless block_given?
+
     ar = []
     my_each { |el| ar << yield(el) }
     ar
   end
 
   # MY_REDUCE
-  def my_inject(args = nil)
-  if args == nil
-  memo = to_a[0]
-  num = 0
-  end
+  # def my_inject(args = nil)
+  # if args == nil
+  # memo = to_a[0]
+  # num = 0
+  # end
 
-  end
+  # end
 
+  def my_inject(initial = nil, second = nil)
+    arr = if is_a?(Array)
+            self
+          else
+            to_a
+          end
+    sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
+    acc = initial if initial.is_a? Integer
+    if initial.is_a?(Integer)
+      sym = second if second.is_a?(Symbol) || second.is_a?(String)
+    end
+
+    if sym
+      arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
+    elsif block_given?
+      arr.my_each { |x| acc = acc ? yield(acc, x) : x }
+    end
+    acc
+  end
+end
+
+def multiply_els(arr)
+  arr.inject(:*)
 end
