@@ -104,53 +104,28 @@ module Enumerable
 
   def my_reduce(arg1 = nil, arg2 = nil)
     accumul = to_a[0]
-     rest = to_a[1..-1]
-     
+    rest = to_a[1..-1]
+    code = proc { |el| accumul = yield(accumul, el) }
 
     if block_given?
       unless arg1
-        rest.my_each { |el| accumul = yield(accumul, el) }
+        rest.my_each(&code)
         return accumul
       end
       accumul = arg1
-      to_a.my_each { |el| accumul = yield(accumul, el) }
+      to_a.my_each(&code)
       return accumul
     end
+
     if arg1 && arg2
       accumul = arg1
       my_each { |el| accumul = accumul.send(arg2, el) }
       return accumul
     end
-    if arg1.is_a?(Symbol)
-      rest.my_each { |el| accumul = accumul.send(arg1, el) }
-      accumul
-    end
- end
+    rest.my_each { |el| accumul = accumul.send(arg1, el) } unless not arg1.is_a?(Symbol)
+    accumul
+  end
 
-
-
-
-
-
-  # def my_inject(initial = nil, second = nil)
-  #   arr = if is_a?(Array)
-  #           self
-  #         else
-  #           to_a
-  #         end
-  #   sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
-  #   acc = initial if initial.is_a? Integer
-  #   if initial.is_a?(Integer)
-  #     sym = second if second.is_a?(Symbol) || second.is_a?(String)
-  #   end
-
-  #   if sym
-  #     arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
-  #   elsif block_given?
-  #     arr.my_each { |x| acc = acc ? yield(acc, x) : x }
-  #   end
-  #   acc
-  # end
 end
 
 def multiply_els(arr)

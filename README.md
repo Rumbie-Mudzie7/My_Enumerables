@@ -1,10 +1,26 @@
-# BUBBLE SORT
+# MY ENUMERABLES
 
-Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted. The algorithm, which is a comparison sort, is named for the way smaller or larger elements "bubble" to the top of the list.
+This is the first project that challenges us into recreating our own enumerable methods using Ruby this is the second Ruby section of the *Microverse Remote Software Development Curriculum*.
 
-The project is done as part of microverse main curriculum from the Ruby Section.
+Below are a list of methods we had to recreate.
 
-![screenshot](./img/bubble_sort.gif)
+### Enumerable Methods List:
+
+- my_each
+- my_each_with_index
+- my_select
+- my_all?
+- my_any?
+- my_none?
+- my_count
+- my_map
+- my_inject
+- multiply_els
+
+
+
+
+![screenshot]()
 
 ## Built With
 
