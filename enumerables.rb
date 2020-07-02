@@ -101,35 +101,53 @@ module Enumerable
   end
 
   # MY_REDUCE
-  # def my_inject(args = nil)
-  # if args == nil
-  # memo = to_a[0]
-  # num = 0
-  # end
-
-  # end
-
-  def my_inject(initial = nil, second = nil)
-    arr = if is_a?(Array)
-            self
-          else
-            to_a
-          end
-    sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
-    acc = initial if initial.is_a? Integer
-    if initial.is_a?(Integer)
-      sym = second if second.is_a?(Symbol) || second.is_a?(String)
+  def my_reduce(arg1 = nil, arg2 = nil)
+    if block_given?
+      unless arg1
+        accumul = to_a[0]
+        rest = to_a[1..-1]
+        rest.my_each { |el| accumul = yield(accumul, el) }
+        return accumul
+      end
+      accumul = arg1
+      to_a.my_each { |el| accumul = yield(accumul, el) }
+      return accumul
     end
 
-    if sym
-      arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
-    elsif block_given?
-      arr.my_each { |x| acc = acc ? yield(acc, x) : x }
+    if arg1 && arg2
+      accumul = arg1
+      my_each { |el| accumul = accumul.send(arg2, el) }
+      return accumul
     end
-    acc
+    if arg1.is_a?(Symbol)
+      accumul = to_a[0]
+      rest = to_a[1..-1]
+      rest.my_each { |el| accumul = accumul.send(arg1, el) }
+      accumul
+    end
   end
+
+  # def my_inject(initial = nil, second = nil)
+  #   arr = if is_a?(Array)
+  #           self
+  #         else
+  #           to_a
+  #         end
+  #   sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
+  #   acc = initial if initial.is_a? Integer
+  #   if initial.is_a?(Integer)
+  #     sym = second if second.is_a?(Symbol) || second.is_a?(String)
+  #   end
+
+  #   if sym
+  #     arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
+  #   elsif block_given?
+  #     arr.my_each { |x| acc = acc ? yield(acc, x) : x }
+  #   end
+  #   acc
+  # end
 end
 
 def multiply_els(arr)
-  arr.inject(:*)
+  arr.my_reduce(:*)
 end
