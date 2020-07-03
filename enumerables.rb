@@ -1,13 +1,15 @@
 module Enumerable
   def my_each
-    return enum_for(:my_each) unless block_given?
+    return enum_for unless block_given?
 
     array = is_a?(Array) ? self : to_a
+
     i = 0
     while i < array.length
       yield(array[i])
       i += 1
     end
+    self
   end
 
   # My_each with index
@@ -92,10 +94,11 @@ module Enumerable
   end
 
   # MY_MAP
-  def my_map
+  def my_map(proc = nil)
+    ar = []
+    my_each { |el| ar << proc.call(el) } if proc
     return enum_for(:my_map) unless block_given?
 
-    ar = []
     my_each { |el| ar << yield(el) }
     ar
   end
@@ -122,10 +125,9 @@ module Enumerable
       my_each { |el| accumul = accumul.send(arg2, el) }
       return accumul
     end
-    rest.my_each { |el| accumul = accumul.send(arg1, el) } unless not arg1.is_a?(Symbol)
+    rest.my_each { |el| accumul = accumul.send(arg1, el) } if arg1.is_a?(Symbol)
     accumul
   end
-
 end
 
 def multiply_els(arr)
