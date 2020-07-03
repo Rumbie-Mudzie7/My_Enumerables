@@ -20,8 +20,6 @@ require_relative 'enumerables.rb'
 
 # p [:foo, :bar].my_select { |x| x == :foo }   #=> [:foo]
 
-
-
 # TEST CASES MY_ALL
 # p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
 # p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
@@ -61,7 +59,6 @@ require_relative 'enumerables.rb'
 # p (1..4).my_map { |i| i*i }      #=> [1, 4, 9, 16]
 # p (1..4).my_map { "cat"  }   #=> ["cat", "cat", "cat", "cat"]
 
-
 # TEST CASES MY_REDUCE
 
 # # Sum some numbers
@@ -77,6 +74,5 @@ require_relative 'enumerables.rb'
 #    memo.length > word.length ? memo : word
 # end
 # p longest                                        #=> "sheep"
-
 
 # p multiply_els(ary)

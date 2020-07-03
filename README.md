@@ -28,7 +28,7 @@ Below are a list of methods we had to recreate.
 
 ## Live Demo 
 
-[Live Demo Link](https://repl.it/@rumbiedee/bubblesort#bubble_sort_by.rb)
+[Live Demo Link](https://repl.it/@rumbiedee/MyEnumerables-2#README.md)
 
 ## Authors
 
@@ -48,7 +48,7 @@ Below are a list of methods we had to recreate.
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](issues/).
+Feel free to check the [issues page](issues/https://github.com/Rumbie-Mudzie7/My_Enumerables/issues/1).
 
 ## 📝 License
 
