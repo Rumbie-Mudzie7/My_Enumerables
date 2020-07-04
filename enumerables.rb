@@ -18,21 +18,20 @@ module Enumerable
     if arg
       i = 0
       while i < array.length
-        arg.call(array[i],i)
+        arg.call(array[i], i)
         i += 1
       end
     end
-    
     return enum_for(:my_each) unless block_given?
-    
-   unless arg
-    i = 0
-    while i < array.length
-      yield(array[i], i)
-      i += 1
+
+    unless arg
+      i = 0
+      while i < array.length
+        yield(array[i], i)
+        i += 1
+      end
     end
     self unless arg
-   end
   end
 
   # My_SELECT
