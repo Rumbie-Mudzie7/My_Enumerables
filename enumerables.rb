@@ -1,9 +1,7 @@
 module Enumerable
   def my_each
     return enum_for unless block_given?
-
     array = is_a?(Array) ? self : to_a
-
     i = 0
     while i < array.length
       yield(array[i])
@@ -73,6 +71,7 @@ module Enumerable
     my_select { |el| return true if el.is_a?(args) } if args.class == Class
     unless block_given?
       my_select { |item| return true if item }
+      return false
     end
     my_select { |item| return true if yield(item) }
     false

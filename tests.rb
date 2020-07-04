@@ -27,11 +27,11 @@ require_relative 'enumerables.rb'
 # p [].my_all?                                           #=> true
 
 # array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
-# array = [3.0, 3.4, 3]
-# p array.my_all?(3.0)
-# # p 3.class == Integer
+
+# p array.my_all?(3)
+
 # #  => true
-# p array.all?(3.0)
+# p array.all?(3)
 #  => false
 
 ##### my_any
@@ -90,12 +90,24 @@ require_relative 'enumerables.rb'
 # p [].my_all?                                           #=> true
 
 # TEST CASES MY_ANY
-# p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-# p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-# p %w[ant bear cat].my_any?(/d/)                        #=> false
-# p [nil, true, 99].my_any?(Integer)                     #=> true
-# p [nil, true, 99].my_any?                              #=> true
-# p [].my_any?                                           #=> false
+p %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
+p %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
+p %w[ant bear cat].any?(/d/)                        #=> false
+p [nil, true, 99].any?(Integer)                     #=> true
+p [nil, true, 99].any?                              #=> true
+p [].any?                                           #=> false
+ false_array = [nil, false, nil, false]
+
+
+p false_array.any?
+
+# #  => false 
+
+p false_array.any?
+
+
+
+
 
 # TEST CASES MY_NONE
 
