@@ -13,15 +13,26 @@ module Enumerable
   end
 
   # My_each with index
-  def my_each_with_index
-    return enum_for(:my_each) unless block_given?
-
+  def my_each_with_index(&arg)
     array = is_a?(Array) ? self : to_a
+    if arg
+      i = 0
+      while i < array.length
+        arg.call(array[i],i)
+        i += 1
+      end
+    end
+    
+    return enum_for(:my_each) unless block_given?
+    
+   unless arg
     i = 0
     while i < array.length
       yield(array[i], i)
       i += 1
     end
+    self unless arg
+   end
   end
 
   # My_SELECT
