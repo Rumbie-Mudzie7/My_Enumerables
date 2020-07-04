@@ -17,13 +17,21 @@ require_relative 'enumerables.rb'
 #  p ar
 
 # My all
+
+# TEST CASES MY_ALL
+# p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
+# p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+# p %w[ant bear cat].my_all?(/t/)                        #=> false
+# p [1, 2i, 3.14].my_all?(Numeric)                       #=> true
+# p [nil, true, 99].my_all?                              #=> false
+# p [].my_all?                                           #=> true
+
 # array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
-
-#  array.my_all?(3)
-
+# array = [3.0, 3.4, 3]
+# p array.my_all?(3.0)
+# # p 3.class == Integer
 # #  => true
-#  array.all?(3)
-
+# p array.all?(3.0)
 #  => false
 
 ##### my_any
@@ -73,7 +81,7 @@ require_relative 'enumerables.rb'
 
 # p [:foo, :bar].my_select { |x| x == :foo }   #=> [:foo]
 
-# TEST CASES MY_ALL
+# # TEST CASES MY_ALL
 # p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
 # p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
 # p %w[ant bear cat].my_all?(/t/)                        #=> false

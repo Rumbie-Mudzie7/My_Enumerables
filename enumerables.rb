@@ -55,6 +55,9 @@ module Enumerable
   def my_all?(args = nil)
     my_select { |el| return false unless el.match?(args) } if args.class == Regexp
     my_select { |el| return false unless el.is_a?(args) } if args.class == Class
+    if args.class == Integer || args.class == String || args.class == Float
+      my_select { |el| return false unless el == args }
+    end
     !block_given? ? my_select { |item| return false unless item } : my_select { |item| return false unless yield(item) }
     true
   end
