@@ -62,7 +62,7 @@ module Enumerable
 
   # My_any
   def my_any?(args = nil)
-    if args.class == Regexp
+    if args.class == Regexp || args.class == String
       ar = []
       my_each { |el| ar << el if el.match?(args) }
       return ar.empty? ? false : true

@@ -90,20 +90,24 @@ require_relative 'enumerables.rb'
 # p [].my_all?                                           #=> true
 
 # TEST CASES MY_ANY
-p %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
-p %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
-p %w[ant bear cat].any?(/d/)                        #=> false
-p [nil, true, 99].any?(Integer)                     #=> true
-p [nil, true, 99].any?                              #=> true
-p [].any?                                           #=> false
- false_array = [nil, false, nil, false]
+# p %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
+# p %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
+# p %w[ant bear cat].any?(/d/)                        #=> false
+# p [nil, true, 99].any?(Integer)                     #=> true
+# p [nil, true, 99].any?                              #=> true
+# p [].any?                                           #=> false
+#  false_array = [nil, false, nil, false]
 
 
-p false_array.any?
+ words = ["dog", "bat", "rod", "blade"] 
 
-# #  => false 
+ p words.my_any?('cat')
 
-p false_array.any?
+#  => true 
+
+ p words.any?('cat')
+
+#  => false 
 
 
 
