@@ -11,7 +11,6 @@ module Enumerable
     self
   end
 
-  # My_each with index
   def my_each_with_index(&arg)
     array = is_a?(Array) ? self : to_a
     if arg
@@ -33,8 +32,6 @@ module Enumerable
     self
   end
 
-  # My_SELECT
-
   def my_select
     return enum_for unless block_given?
 
@@ -50,7 +47,6 @@ module Enumerable
     selected
   end
 
-  # My_all?
   def my_all?(args = nil)
     my_select { |el| return false unless el.match?(args) } if args.class == Regexp
     my_select { |el| return false unless el.is_a?(args) } if args.class == Class
@@ -61,7 +57,6 @@ module Enumerable
     true
   end
 
-  # My_any
   def my_any?(args = nil)
     return !my_select { |el| args == el }.empty? if args.is_a? String
     return !my_select { |el| el.is_a?(args) }.empty? if args.is_a? Class
@@ -71,8 +66,6 @@ module Enumerable
     my_select { |item| return true if yield(item) }
     false
   end
-
-  # My_none
 
   def my_none?(args = nil)
     return !my_any? { |el| el.match?(args) } if args.is_a? Regexp
@@ -84,24 +77,19 @@ module Enumerable
     true
   end
 
-  # MY_COUNT
   def my_count(args = nil)
     return size if !block_given? && args.nil?
     return my_select { |el| el == args }.size unless args.nil?
     return my_select { |el| yield(el) }.size if block_given?
   end
 
-  # MY_MAP
-  def my_map(proc = nil)
-    ar = []
-    my_each { |el| ar << proc.call(el) } if proc
-    return enum_for(:my_map) unless block_given?
+  def my_map(*args)
+    return enum_for(_method_) if !block_given? && args[0].nil?
 
-    my_each { |el| ar << yield(el) }
+    ar = []
+    my_each { |item| new_array << (args[0].nil? ? yield(item) : args[0].call(item)) }
     ar
   end
-
-  # MY_REDUCE
 
   def my_inject(arg1 = nil, arg2 = nil)
     accumul = to_a[0]

@@ -10,7 +10,7 @@ require_relative 'enumerables.rb'
 
 # ar = []
 # block = Proc.new{|el,i| ar<< [el+1,i]}
-# #  array.my_each_with_index(&block)
+#  array.my_each_with_index(&block)
 
 #   array.each_with_index(&block)
 #  p ar
@@ -157,20 +157,15 @@ require_relative 'enumerables.rb'
 # p longest                                        #=> "sheep"
 
 # p multiply_els(ary)
-# array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
 
-# my_proc = proc { |num| num > 10 }
+# # my_proc = proc
 
-# p array.my_map(my_proc) { |num| num < 10 }
+# p array.my_map { |num| num > 10 } # { |num| num < 10 }
 
-# # # [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+# # p array.map(my_proc)# { |num| num < 10 }
 
-# p array.map(&my_proc)
+# p array.my_map{|num| num < 10 } == array.map(&my_proc)
 
-# #  => [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-
-# # p array.my_map(my_proc) {|num| num < 10 } = array.map(&my_proc)
-
-# p array.my_map(my_proc) { |num| num < 10 } == array.map(&my_proc)
+# p array.my_map(&my_proc) == array.map(&my_proc)
 
 # #  => false
