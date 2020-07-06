@@ -158,7 +158,7 @@ require_relative 'enumerables.rb'
 
 # p multiply_els(ary)
 
-# # my_proc = proc
+# my_proc = proc
 
 # p array.my_map { |num| num > 10 } # { |num| num < 10 }
 
@@ -169,3 +169,7 @@ require_relative 'enumerables.rb'
 # p array.my_map(&my_proc) == array.map(&my_proc)
 
 # #  => false
+
+# burgers = { 'Big Mac' => 300, 'Whopper with cheese' => 450, "Wendy's Double with cheese" => 320 }
+
+# p burgers.my_map

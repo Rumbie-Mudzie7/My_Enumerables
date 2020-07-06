@@ -84,10 +84,10 @@ module Enumerable
   end
 
   def my_map(*args)
-    return enum_for(_method_) if !block_given? && args[0].nil?
+    return enum_for(:my_map) if !block_given? && args[0].nil?
 
     ar = []
-    my_each { |item| new_array << (args[0].nil? ? yield(item) : args[0].call(item)) }
+    my_each { |item| ar << (args[0].nil? ? yield(item) : args[0].call(item)) }
     ar
   end
 
@@ -117,5 +117,5 @@ module Enumerable
 end
 
 def multiply_els(arr)
-  arr.my_reduce(:*)
+  arr.my_inject(:*)
 end
