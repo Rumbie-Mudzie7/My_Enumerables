@@ -1,6 +1,7 @@
 module Enumerable
   def my_each
     return enum_for unless block_given?
+
     array = is_a?(Array) ? self : to_a
     i = 0
     while i < array.length
@@ -29,7 +30,7 @@ module Enumerable
         i += 1
       end
     end
-    self unless arg
+    self
   end
 
   # My_SELECT
@@ -62,17 +63,11 @@ module Enumerable
 
   # My_any
   def my_any?(args = nil)
-    if args.class == Regexp || args.class == String
-      ar = []
-      my_each { |el| ar << el if el.match?(args) }
-      return ar.empty? ? false : true
-    end
+    return !my_select { |el| args == el }.empty? if args.is_a? String
+    return !my_select { |el| el.is_a?(args) }.empty? if args.is_a? Class
+    return !my_select { |el| el.match?(args) }.empty? if args.is_a? Regexp
+    return !my_select { |item| item }.empty? unless block_given?
 
-    my_select { |el| return true if el.is_a?(args) } if args.class == Class
-    unless block_given?
-      my_select { |item| return true if item }
-      return false
-    end
     my_select { |item| return true if yield(item) }
     false
   end
@@ -80,16 +75,11 @@ module Enumerable
   # My_none
 
   def my_none?(args = nil)
-    if args.class == Regexp
-      ar = []
-      my_each { |el| ar << el if el.match?(args) }
-      return ar.empty? ? true : false
-    end
-    if args.class == Class
-      ar = []
-      my_each { |el| ar << el if el.is_a?(args) }
-      return ar.empty? ? true : false
-    end
+    return !my_any? { |el| el.match?(args) } if args.is_a? Regexp
+    return my_select { |el| el == args }.empty? if args.is_a? String
+    return my_select { |el| el == args }.empty? if args.is_a?(Integer)
+    return my_select { |el| el == args }.empty? if args.is_a?(Float)
+
     !block_given? ? my_select { |item| return false if item } : my_select { |item| return false if yield(item) }
     true
   end
@@ -97,12 +87,8 @@ module Enumerable
   # MY_COUNT
   def my_count(args = nil)
     return size if !block_given? && args.nil?
-
-    ar = my_select { |el| el == args }
-    return ar.size unless args.nil?
-
-    ar = my_select { |el| yield(el) }
-    return ar.size if block_given?
+    return my_select { |el| el == args }.size unless args.nil?
+    return my_select { |el| yield(el) }.size if block_given?
   end
 
   # MY_MAP
@@ -117,7 +103,7 @@ module Enumerable
 
   # MY_REDUCE
 
-  def my_reduce(arg1 = nil, arg2 = nil)
+  def my_inject(arg1 = nil, arg2 = nil)
     accumul = to_a[0]
     rest = to_a[1..-1]
     code = proc { |el| accumul = yield(accumul, el) }

@@ -10,11 +10,18 @@ require_relative 'enumerables.rb'
 
 # ar = []
 # block = Proc.new{|el,i| ar<< [el+1,i]}
-# array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
-#  array.my_each_with_index(&block)
+# #  array.my_each_with_index(&block)
 
-# # p  array.each_with_index(&block)
+#   array.each_with_index(&block)
 #  p ar
+# ar = []
+
+#  block = proc { |num|  ar<<(num < 4) }
+
+# # p array.my_each_with_index(&block)
+
+#  => nil
+# p array.each_with_index(&block)
 
 # My all
 
@@ -26,47 +33,13 @@ require_relative 'enumerables.rb'
 # p [nil, true, 99].my_all?                              #=> false
 # p [].my_all?                                           #=> true
 
-# array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
-
 # p array.my_all?(3)
 
 # #  => true
 # p array.all?(3)
-#  => false
+# #  => false
 
 ##### my_any
-
-# 2.6.5 :025 > false_array = [nil, false, nil, false]
-
-#  => [nil, false, nil, false]
-
-# 2.6.5 :026 > false_array.any?
-
-#  => false
-
-# 2.6.5 :027 > false_array.my_any?
-
-# Traceback (most recent call last):
-
-#         9: from /usr/share/rvm/rubies/ruby-2.6.5/bin/irb:23:in `<main>'
-
-#         8: from /usr/share/rvm/rubies/ruby-2.6.5/bin/irb:23:in `load'
-
-#         7: from /usr/share/rvm/rubies/ruby-2.6.5/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
-
-#         6: from (irb):27
-
-#         5: from enumerables.rb:64:in `my_any?'
-
-#         4: from enumerables.rb:40:in `my_select'
-
-#         3: from enumerables.rb:9:in `my_each'
-
-#         2: from enumerables.rb:40:in `block in my_select'
-
-#         1: from enumerables.rb:64:in `block in my_any?'
-
-# LocalJumpError (no block given (yield))
 
 # TEST CASES MY_EACH
 # ary = [1,2,3,4,5]
@@ -90,46 +63,77 @@ require_relative 'enumerables.rb'
 # p [].my_all?                                           #=> true
 
 # TEST CASES MY_ANY
-# p %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
-# p %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
-# p %w[ant bear cat].any?(/d/)                        #=> false
-# p [nil, true, 99].any?(Integer)                     #=> true
-# p [nil, true, 99].any?                              #=> true
-# p [].any?                                           #=> false
-#  false_array = [nil, false, nil, false]
+# p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+# p %w[anty bears caaat].any? { |word| word.length > 4 } #=> true
+# p %w[ant bear cat].my_any?(/d/)                        #=> false
+# p [nil, true,1].my_any?(Integer)                     #=> true
+# p [nil, false, 99].my_any? #=> true
+# p [].my_any? #=> false
 
+# words = %w[dog bat rod blade]
 
- words = ["dog", "bat", "rod", "blade"] 
+#  p words.my_any?('cat')
 
- p words.my_any?('cat')
+# #  => true
 
-#  => true 
+#  p words.any?('cat')
 
- p words.any?('cat')
+#  => false
 
-#  => false 
+# false_array = [nil, false, nil]
 
+# #  => [nil, false, nil, false,]
 
+# p false_array.any?
 
+# # # #  => false
 
+# # p false_array.my_any?
+# words = ["dog", "door", "rod"]
+
+# p words.my_any?(Integer)
+
+# # # #     #  => false
+
+# p  words.any?(Integer)
+
+# #     #  true
+
+#   p words.my_any?('sun')
+
+#     # => true
+
+#   p words.any?('sun')
+
+# p a
 
 # TEST CASES MY_NONE
 
 # p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
 # p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
 # p %w{ant bear cat}.my_none?(/d/)                        #=> true
-# p [1, 3.14, 42].my_none?(Float)                         #=> false
+# p [1, 3, 42].my_none?(String)                         #=> false
 # p [].my_none?                                           #=> true
 # p [nil].my_none?                                        #=> true
 # p [nil, false].my_none?                                 #=> true
-# p [nil, false, true].my_none?                           #=> false
+# p [nil,3 , true].my_none?                           #=> false
+
+# words = ["dog", "door", "rod", "dwad"]
+
+# p words.my_none?("pop")
+
+# # # # #  => false
+
+#  p words.none?("pop")
+
+#  => true
 
 # TEST CASES MY_COUNT
 
 # ary = [1, 2, 4, 2]
-# p ary.my_count               #=> 4
-# p ary.my_count(2)            #=> 2
-# p ary.my_count{ |x| x%2==0 } #=> 3
+# p ary.my_count #=> 4
+# p ary.my_count(2) #=> 2
+# p ary.my_count(&:even?) #=> 3
 
 # TEST CASES MY_MAP
 
@@ -153,3 +157,20 @@ require_relative 'enumerables.rb'
 # p longest                                        #=> "sheep"
 
 # p multiply_els(ary)
+# array = [5, 7, 0, 7, 6, 0, 8, 0, 1, 6, 4, 5, 7, 6, 8, 4, 2, 6, 4, 5, 8, 5, 5, 0, 5, 1, 0, 6, 4, 2, 6, 3, 6, 8, 6, 0, 8, 3, 4, 5, 3, 0, 1, 2, 2, 5, 4, 3, 0, 8, 6, 7, 8, 4, 6, 2, 6, 2, 6, 7, 3, 4, 8, 7, 4, 7, 1, 3, 6, 7, 8, 1, 5, 5, 6, 2, 7, 5, 3, 1, 7, 8, 5, 6, 8, 0, 0, 6, 4, 8, 2, 7, 8, 0, 4, 6, 8, 6, 8, 4]
+
+# my_proc = proc { |num| num > 10 }
+
+# p array.my_map(my_proc) { |num| num < 10 }
+
+# # # [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+
+# p array.map(&my_proc)
+
+# #  => [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+
+# # p array.my_map(my_proc) {|num| num < 10 } = array.map(&my_proc)
+
+# p array.my_map(my_proc) { |num| num < 10 } == array.map(&my_proc)
+
+# #  => false
