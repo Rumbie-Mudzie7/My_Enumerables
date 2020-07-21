@@ -41,7 +41,7 @@ Below are a list of methods we had to recreate.
 👤 **Rumbidzayi Mudziviri**
 
 - Github: [@Rumbie-Mudzie7](https://github.com/Rumbie-Mudzie7)
-- Twitter: [@RumbidzayMudz3](https://twitter.com/RumbidzayMudz3)
+- Twitter: [@RumbidzayiMudz3](https://twitter.com/RumbidzayiMudz3)
 - Linkedin: [rumbidzayimudziviri](https://www.linkedin.com/in/rumbidzayi-mudziviri-792b4b85/)
 
 ## 🤝 Contributing
